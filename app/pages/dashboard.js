@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Expense from './components/expense'; // Import the Expense component
 import Aggregate from './components/aggregate'; // Import the Aggregate component
 import styles from '../styles/dashboard.module.css';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const [showComponent, setShowComponent] = useState(null);
@@ -81,6 +82,12 @@ export default function Dashboard() {
               Compare totals across categories and time ranges.
             </span>
           </button>
+          <Link className={styles.actionCard} href="/analyse">
+            <span className={styles.actionTitle}>Analyze the budget</span>
+            <span className={styles.actionText}>
+              Chat with an AI assistant to interpret spending trends.
+            </span>
+          </Link>
         </section>
 
         <section className={styles.panel}>

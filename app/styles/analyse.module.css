@@ -1,0 +1,254 @@
+.page {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #f7faf7, #eff5f1 55%, #e3ece7);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 15%, rgba(50, 106, 92, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 5%, rgba(212, 164, 92, 0.25), transparent 40%),
+    repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35) 1px, transparent 1px, transparent 16px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(2.75rem, 4.5vw, 4.5rem) clamp(1.25rem, 3vw, 3.5rem);
+  display: grid;
+  gap: 2rem;
+  animation: pageIn 0.8s ease;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.4rem;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+.subtitle {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  max-width: 50ch;
+}
+
+.headerCard {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(30, 46, 42, 0.12);
+  border-radius: 20px;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 18px 32px rgba(26, 36, 33, 0.12);
+  min-width: 240px;
+}
+
+.headerCard ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.4rem;
+}
+
+.headerLabel {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.chatShell {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.chatStream {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 24px;
+  padding: 1.6rem;
+  border: 1px solid rgba(30, 46, 42, 0.12);
+  box-shadow: 0 18px 32px rgba(26, 36, 33, 0.12);
+  min-height: 320px;
+  display: grid;
+  gap: 1rem;
+}
+
+.message {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 16px;
+  border: 1px solid transparent;
+}
+
+.fromUser {
+  background: rgba(50, 106, 92, 0.12);
+  border-color: rgba(50, 106, 92, 0.2);
+}
+
+.fromAssistant {
+  background: rgba(212, 164, 92, 0.16);
+  border-color: rgba(212, 164, 92, 0.2);
+}
+
+.messageRole {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.sidePanel {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 22px;
+  padding: 1.5rem;
+  border: 1px solid rgba(30, 46, 42, 0.12);
+  box-shadow: 0 18px 32px rgba(26, 36, 33, 0.1);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.sidePanel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.pillGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.pillGrid span {
+  background: rgba(50, 106, 92, 0.12);
+  color: var(--muted);
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.insight {
+  background: rgba(212, 164, 92, 0.14);
+  border-left: 3px solid rgba(212, 164, 92, 0.6);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.composer {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 22px;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(30, 46, 42, 0.12);
+  box-shadow: 0 18px 32px rgba(26, 36, 33, 0.1);
+  display: grid;
+  gap: 0.8rem;
+}
+
+.composer textarea {
+  border: none;
+  resize: none;
+  background: transparent;
+  font-size: 1rem;
+  min-height: 70px;
+}
+
+.composer textarea:focus {
+  outline: none;
+}
+
+.composerActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.ghost {
+  border: 1px solid rgba(30, 46, 42, 0.18);
+  background: transparent;
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary {
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  background: linear-gradient(135deg, var(--brand), var(--accent));
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .chatShell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 2.5rem 1rem;
+  }
+
+  .composerActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
