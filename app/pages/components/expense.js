@@ -67,10 +67,10 @@ export default function Expense() {
       <Head>
         <title>Monthly</title>
       </Head>
-      <main className={styles.main}>
+      <section className={styles.subSection}>
         <div className={styles.container}>
           <form onSubmit={handleSubmit} className={styles.form}>
-            <h2>Enter your expense</h2>
+            <h2 className={styles.sectionTitle}>Enter your expense</h2>
             <table className={styles.formTable}>
               <tbody>
                 <tr>
@@ -113,13 +113,15 @@ export default function Expense() {
                   <td><input type="text" id="comments" name="comments" required /></td>
                 </tr>
                 <tr>
-                  <td colSpan="2"><center><input type="submit" name="Add" value="Add" className={styles.submitButton} /></center></td>
+                  <td colSpan="2">
+                    <input type="submit" name="Add" value="Add" className={styles.submitButton} />
+                  </td>
                 </tr>
               </tbody>
             </table>
           </form>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

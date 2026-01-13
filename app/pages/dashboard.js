@@ -19,21 +19,82 @@ export default function Dashboard() {
         <title>Monthly App</title>
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <div>Welcome to the Monthly App</div>
-          <br />
-          <div className={styles.tilesContainer}>
-            <div className={styles.tile} onClick={() => { handleClick('expense'); }}>
-              <a className={styles.links}>Add an expense</a>
-            </div>
-            <div className={styles.tile} onClick={() => { handleClick('aggregate'); }}>
-              <a className={styles.links}>View monthly summary</a>
+        <header className={styles.header}>
+          <div className={styles.brand}>
+            <div className={styles.brandMark}>M</div>
+            <div>
+              <p className={styles.brandKicker}>Monthly</p>
+              <h1 className={styles.brandTitle}>Personal budget control center</h1>
             </div>
           </div>
-        </div>
-        {/* Conditionally render the component based on state */}
-        {showComponent === 'expense' && <Expense />}
-        {showComponent === 'aggregate' && <Aggregate />}
+          <div className={styles.headerActions}>
+            <div className={styles.statusChip}>
+              <span className={styles.statusDot}></span>
+              Sync active
+            </div>
+            <button className={styles.secondaryButton} type="button">
+              Export report
+            </button>
+          </div>
+        </header>
+
+        <section className={styles.summaryGrid}>
+          <div className={styles.summaryCard}>
+            <p className={styles.summaryLabel}>Month to date</p>
+            <p className={styles.summaryValue}>$2,840</p>
+            <p className={styles.summaryMeta}>$360 under plan</p>
+          </div>
+          <div className={styles.summaryCard}>
+            <p className={styles.summaryLabel}>Top category</p>
+            <p className={styles.summaryValue}>Housing</p>
+            <p className={styles.summaryMeta}>38% of expenses</p>
+          </div>
+          <div className={styles.summaryCard}>
+            <p className={styles.summaryLabel}>Upcoming bills</p>
+            <p className={styles.summaryValue}>4</p>
+            <p className={styles.summaryMeta}>Next due in 6 days</p>
+          </div>
+        </section>
+
+        <section className={styles.actionGrid}>
+          <button
+            className={styles.actionCard}
+            type="button"
+            onClick={() => {
+              handleClick('expense');
+            }}
+          >
+            <span className={styles.actionTitle}>Add an expense</span>
+            <span className={styles.actionText}>
+              Log a new purchase and tag it to a category.
+            </span>
+          </button>
+          <button
+            className={styles.actionCard}
+            type="button"
+            onClick={() => {
+              handleClick('aggregate');
+            }}
+          >
+            <span className={styles.actionTitle}>View monthly summary</span>
+            <span className={styles.actionText}>
+              Compare totals across categories and time ranges.
+            </span>
+          </button>
+        </section>
+
+        <section className={styles.panel}>
+          <div className={styles.panelHeader}>
+            <div>
+              <h2 className={styles.panelTitle}>Budget workspace</h2>
+              <p className={styles.panelSubtitle}>
+                Use the tools below to update expenses or review summaries.
+              </p>
+            </div>
+          </div>
+          {showComponent === 'expense' && <Expense />}
+          {showComponent === 'aggregate' && <Aggregate />}
+        </section>
       </main>
     </div>
   );

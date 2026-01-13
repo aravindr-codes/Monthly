@@ -23,33 +23,48 @@ export default   function  Aggregate({initialData}) {
       <Head>
         <title>Monthly</title>
       </Head>
-      <main className={styles.main}>
-       <div className={styles.description}>
-      
-    <div >
-    <h1>Summary of expenses</h1><br></br>
-    <div>
-              <label htmlFor="startDate">Start Date:</label>
-              <input type="date" id="startDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-            </div>
+      <section className={styles.subSection}>
+        <div className={styles.container}>
+          <div className={styles.description}>
             <div>
-              <label htmlFor="endDate">End Date:</label>
-              <input type="date" id="endDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+              <h1 className={styles.sectionTitle}>Summary of expenses</h1>
+              <div className={styles.filters}>
+                <div>
+                  <label htmlFor="startDate">Start Date:</label>
+                  <input
+                    type="date"
+                    id="startDate"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="endDate">End Date:</label>
+                  <input
+                    type="date"
+                    id="endDate"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </div>
+              </div>
+              <button onClick={fetchData} className={styles.primaryButton}>
+                Fetch Data
+              </button>
+              <table className={styles.table}>
+                <tbody>
+                  <tr><th>Item</th><th>Total</th></tr>
+                  {data.map((totals) => {
+                    return (
+                      <tr key={totals._id}><td>{totals._id}</td><td>{totals.total}</td></tr>
+                    )
+                  })}
+                </tbody>
+              </table>
             </div>
-            <button onClick={fetchData}>Fetch Data</button>
-            <br />
-      <table border="1px">
-      <tbody>
-        <tr><th>Item</th><th>Total</th></tr>
-      {data.map((totals) => {
-            return (
-          <tr key={totals._id}><td>{totals._id}</td><td>{totals.total}</td></tr>
-          )})}
-      </tbody>
-      </table>
-    </div>
-    </div>
-      </main>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
