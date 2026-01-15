@@ -109,9 +109,6 @@ export default function Home() {
                 Log in
               </button>
               {error && <p className={styles.errorText}>{error}</p>}
-              <p className={styles.helper}>
-                Secure access with encrypted sessions and automatic timeouts.
-              </p>
             </form>
           </section>
         </div>

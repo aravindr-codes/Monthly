@@ -12,7 +12,9 @@ export default async function loginHandler(req, res) {
     if(req.method==='GET'){
         var db=mongoclnt.db();
         var userRecord=await db.collection('user').find({'userId':userId}).toArray();
-        //console.log(userRecord);
+        if (!userRecord || userRecord.length === 0) {
+            return res.status(500).json({ error: 'User does not exists' });
+        }
         token=sign({userId:req.query.q  }, 'newPassword')
     }
 
