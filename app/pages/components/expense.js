@@ -47,7 +47,7 @@ export default function Expense() {
     const fetchData = async () => {
       try {
         const headers = {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // need   to pass token in header
           // Add any other headers if needed
         };
         const response = await axios.get('http://localhost:3000/api/category', { headers });
