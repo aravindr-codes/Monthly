@@ -3,12 +3,14 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
+import { useState } from 'react';
 import Cookies from 'js-cookie';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const router = useRouter()
+  const [error, setError] = useState('');
   const handleSubmit = async (event) => {
     event.preventDefault();
     
@@ -106,6 +108,7 @@ export default function Home() {
               <button type="submit" name="login" className={styles.primaryButton}>
                 Log in
               </button>
+              {error && <p className={styles.errorText}>{error}</p>}
               <p className={styles.helper}>
                 Secure access with encrypted sessions and automatic timeouts.
               </p>
