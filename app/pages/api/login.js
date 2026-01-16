@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import jsonwebtoken from 'jsonwebtoken';
 import mongoClient from'../../api-lib/db/mongodb'
 const { sign, decode, verify } = jsonwebtoken;
