@@ -11,11 +11,24 @@ export default   function  Aggregate({initialData}) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [data, setData] = useState(initialData);
+  const [errorMessage, setErrorMessage] = useState('');
   const fetchData = async () => {
-    const res = await fetch(`http://localhost:3000/api/aggregate?startDate=${startDate}&endDate=${endDate}`);
-    const resdata = await res.json();
-    // Update the component's state with the fetched data
-    setData(resdata);
+    setErrorMessage('');
+    try {
+      const res = await fetch(`http://localhost:3000/api/aggregate?startDate=${startDate}&endDate=${endDate}`);
+      const resdata = await res.json();
+      if (!res.ok) {
+        setErrorMessage(resdata?.error || 'Failed to load summary.');
+        setData([]);
+        return;
+      }
+      // Update the component's state with the fetched data
+      setData(resdata);
+    } catch (error) {
+      console.error('Aggregate fetch error:', error);
+      setErrorMessage('Failed to load summary.');
+      setData([]);
+    }
   };
 
   return (
@@ -51,6 +64,7 @@ export default   function  Aggregate({initialData}) {
               <button onClick={fetchData} className={styles.primaryButton}>
                 Fetch Data
               </button>
+              {errorMessage && <p className={styles.errorText}>{errorMessage}</p>}
               <table className={styles.table}>
                 <tbody>
                   <tr><th>Item</th><th>Total</th></tr>
@@ -70,8 +84,8 @@ export default   function  Aggregate({initialData}) {
 }
 export async function getServerSideProps() {  //Why are you doing this like this?????
   const res = await fetch(`http://localhost:3000/api/aggregate`)
-  var body=await res.json()
+  const body = await res.json()
   console.log(body)
-  return { props: { initialData:body} }
+  return { props: { initialData: res.ok ? body : [] } }
     
   }
