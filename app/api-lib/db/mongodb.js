@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-const uri = process.env.MONGODB_URI
+const uri = "mongodb://localhost:27017/BUDGET-DB"
 const options = {
 //  useUnifiedTopology: true,
   useNewUrlParser: false,
@@ -9,9 +9,9 @@ const options = {
 let client
 let mongoClient
 
-if (!process.env.MONGODB_URI) {
+/*if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local')
-}
+}*/
 
 // if (process.env.NODE_ENV === 'development') {
 //   // In development mode, use a global variable so that the value
