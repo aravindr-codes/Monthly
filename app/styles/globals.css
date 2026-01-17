@@ -41,3 +41,49 @@ textarea {
   font: inherit;
   color: inherit;
 }
+
+/* Fallback layout for react-datepicker when defaults don't load as expected. */
+.react-datepicker {
+  font-family: inherit;
+  background: #fff;
+  border: 1px solid rgba(30, 46, 42, 0.18);
+  border-radius: 12px;
+  padding: 0.5rem;
+}
+
+.react-datepicker__header {
+  background: #f6f8f6;
+  border-bottom: 1px solid rgba(30, 46, 42, 0.12);
+  padding-top: 0.5rem;
+}
+
+.react-datepicker__current-month {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  margin: 0.1rem;
+  border-radius: 6px;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: var(--brand);
+  color: #fff;
+}
+
+.react-datepicker__navigation {
+  top: 0.6rem;
+}

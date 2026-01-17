@@ -99,7 +99,8 @@ export default function Expense() {
                       selected={selectedDate}
                       onChange={(date) => setSelectedDate(date)}
                       dateFormat="yyyy-MM-dd"
-                      placeholderText=""
+                      placeholderText="Select a date"
+                      className={styles.input}
                       required
                     />
                   </td>
