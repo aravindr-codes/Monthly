@@ -6,7 +6,7 @@ services:
     environment: 
       - MONGO_INITDB_DATABASE=BUDGET-DB
       - MONGO_INITDB_USERNAME=dbadmin
-      - MONGO_INITDB_PASSORD=secret
+      - MONGO_INITDB_PASSWORD=secret
     volumes:
       - ./mongo-volume:/data/db
     ports: 
