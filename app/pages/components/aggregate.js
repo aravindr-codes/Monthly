@@ -6,16 +6,16 @@ import Head from 'next/head';
 const inter = Inter({ subsets: ['latin'] });
 
 
-export default   function  Aggregate({initialData}) {
+export default function Aggregate({ initialData }) {
   const router = useRouter()
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(Array.isArray(initialData) ? initialData : []);
   const [errorMessage, setErrorMessage] = useState('');
   const fetchData = async () => {
     setErrorMessage('');
     try {
-      const res = await fetch(`http://localhost:3000/api/aggregate?startDate=${startDate}&endDate=${endDate}`);
+      const res = await fetch(`http://localhost:3000/api/aggregate?startDate`);
       const resdata = await res.json();
       if (!res.ok) {
         setErrorMessage(resdata?.error || 'Failed to load summary.');
@@ -68,9 +68,10 @@ export default   function  Aggregate({initialData}) {
               <table className={styles.table}>
                 <tbody>
                   <tr><th>Item</th><th>Total</th></tr>
-                  {data.map((totals) => {
+                  {Array.isArray(data) && data.map((totals) => {
+                    const item = totals.expenseType ?? totals._id;
                     return (
-                      <tr key={totals._id}><td>{totals._id}</td><td>{totals.total}</td></tr>
+                      <tr key={item}><td>{item}</td><td>{totals.total}</td></tr>
                     )
                   })}
                 </tbody>
@@ -82,10 +83,13 @@ export default   function  Aggregate({initialData}) {
     </div>
   )
 }
-export async function getServerSideProps() {  //Why are you doing this like this?????
-  const res = await fetch(`http://localhost:3000/api/aggregate`)
-  const body = await res.json()
-  console.log(body)
-  return { props: { initialData: res.ok ? body : [] } }
-    
+export async function getServerSideProps() {
+  try {
+    const res = await fetch(`http://localhost:3000/api/aggregate`)
+    const body = await res.json()
+    return { props: { initialData: res.ok ? body : [] } }
+  } catch (error) {
+    console.error('Aggregate SSR fetch error:', error)
+    return { props: { initialData: [] } }
   }
+}

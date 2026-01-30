@@ -27,13 +27,31 @@ export default async function aggregateHandler(req, res) {
       {
         endDate = new Date(endDate);
       }
+      console.log(startDate)
       aggregatedExpense = await db
         .collection(collectionName)
         .aggregate([
-            { $match: { expenseDate: { $gte: startDate,//firstDay ,
-                                      $lte:endDate}//lastDay  } 
-          } },
-          { $group: { _id: "$expenseType", total: { $sum: "$Amount" } } },
+          {
+            $match: {
+              expenseDate: { $gte: startDate, $lte: endDate },
+              expenseType: { $ne: null },
+              Amount: { $ne: null },
+            },
+          },
+          {
+            $group: {
+              _id: "$expenseType",
+              total: { $sum: "$Amount" },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              expenseType: "$_id",
+              total: 1,
+            },
+          },
+          { $sort: { total: -1 } },
         ])
         .toArray();
     }

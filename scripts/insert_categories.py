@@ -56,7 +56,7 @@ def build_mongo_uri() -> str:
 def main() -> int:
     uri = build_mongo_uri()
     db_name = os.getenv("MONGO_DB", "BUDGET-DB")
-    collection_name = os.getenv("MONGO_CATEGORY_COLLECTION", "category")
+    collection_name = os.getenv("MONGO_CATEGORY_COLLECTION", "Category")
 
     client = MongoClient(uri)
     db = client[db_name]
@@ -67,8 +67,8 @@ def main() -> int:
 
     for name in CATEGORIES:
         result = collection.update_one(
-            {"name": name},
-            {"$setOnInsert": {"name": name}},
+            {"Name": name},
+            {"$setOnInsert": {"Name": name}},
             upsert=True,
         )
         if result.upserted_id is not None:
