@@ -325,6 +325,85 @@
   background: rgba(245, 248, 246, 0.7);
 }
 
+.donutSection {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.donutWrapper {
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid rgba(30, 46, 42, 0.12);
+  padding: 1.5rem;
+  box-shadow: 0 16px 28px rgba(26, 36, 33, 0.12);
+}
+
+.donut {
+  width: 200px;
+  height: 200px;
+}
+
+.donutTotalLabel {
+  font-size: 0.8rem;
+  fill: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.donutTotalValue {
+  font-size: 1.2rem;
+  fill: var(--ink);
+  font-weight: 700;
+}
+
+.donutEmpty {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px dashed rgba(30, 46, 42, 0.2);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.donutLegend {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.donutLegendItem {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.donutLegendSwatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.donutLegendLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.donutLegendValue {
+  font-weight: 600;
+  color: var(--muted);
+}
+
 @keyframes pageIn {
   from {
     opacity: 0;
@@ -353,5 +432,9 @@
 
   .card {
     padding: 1.75rem;
+  }
+
+  .donutSection {
+    grid-template-columns: 1fr;
   }
 }

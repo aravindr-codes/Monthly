@@ -27,7 +27,7 @@ export default async function aggregateHandler(req, res) {
       {
         endDate = new Date(endDate);
       }
-      console.log(startDate)
+     
       aggregatedExpense = await db
         .collection(collectionName)
         .aggregate([
@@ -55,7 +55,6 @@ export default async function aggregateHandler(req, res) {
         ])
         .toArray();
     }
-    console.log(aggregatedExpense)
     res.status(200).json(aggregatedExpense);
   } catch (error) {
     console.error('Aggregate API error:', error);
