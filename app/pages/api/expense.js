@@ -14,12 +14,42 @@ const token = req.headers.authorization;
     const collectionName = 'expense';
     var insertedExpense;
     if(req.method==='POST'){
-        console.log(req.body)
-        req.body.Amount=parseFloat(req.body.Amount)
-        req.body.expenseDate=new Date(req.body.expenseDate);
-        req.body.createdDate=new Date();    //adding created date
         var db=mongoclnt.db('BUDGET-DB');
-        insertedExpense= await db.collection(collectionName).insertOne(req.body);       
+        const payload = req.body;
+        const expenses = Array.isArray(payload?.expenses)
+            ? payload.expenses
+            : Array.isArray(payload)
+                ? payload
+                : [payload];
+
+        const now = new Date();
+        const normalized = expenses.map((expense) => {
+            const doc = { ...expense };
+            if (doc.Amount !== undefined && doc.Amount !== null && doc.Amount !== '') {
+                doc.Amount = parseFloat(doc.Amount);
+            }
+            if (doc.expenseDate) {
+                doc.expenseDate = new Date(doc.expenseDate);
+            }
+            if (!doc.expenseDate) {
+                delete doc.expenseDate;
+            }
+            if (!doc.comments) {
+                delete doc.comments;
+            }
+            doc.createdDate = now;
+            return doc;
+        }).filter((doc) => doc.expenseType && !Number.isNaN(doc.Amount));
+
+        if (normalized.length === 0) {
+            return res.status(400).json({ error: 'No valid expenses to insert.' });
+        }
+
+        if (normalized.length === 1) {
+            insertedExpense = await db.collection(collectionName).insertOne(normalized[0]);
+        } else {
+            insertedExpense = await db.collection(collectionName).insertMany(normalized);
+        }
     }
     res.status(200).json(insertedExpense)
   }
