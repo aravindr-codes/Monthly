@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb'
 
-const uri = "mongodb://dbadmin:secret@database:27017/BUDGET-DB?authSource=admin"
+const uri = "mongodb://dbadmin:secret@localhost:27017/BUDGET-DB?authSource=admin"
+//"mongodb://dbadmin:secret@database:27017/BUDGET-DB?authSource=admin"
 const options = {
 //  useUnifiedTopology: true,
   useNewUrlParser: false,
