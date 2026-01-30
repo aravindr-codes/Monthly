@@ -11,8 +11,6 @@ export default async function aggregateHandler(req, res) {
     var aggregatedExpense;
     if (req.method === "GET") {
       var { startDate, endDate } = req.query;
-      console.log(startDate)
-      console.log(typeof startDate)
       var db = mongoclnt.db("BUDGET-DB");
       var date = new Date();
       if (!startDate) {
