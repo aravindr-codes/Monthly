@@ -9,7 +9,7 @@ CATEGORIES = [
     "Snacks",
     "House repair and Cleaning",
     "Electricity",
-    "water",
+    "Water",
     "Sewer",
     "House tax",
     "Karate",
