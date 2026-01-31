@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Expense from './components/expense'; // Import the Expense component
 import Aggregate from './components/aggregate'; // Import the Aggregate component
+import Transactions from './components/transactions';
 import styles from '../styles/dashboard.module.css';
 import Link from 'next/link';
 
@@ -82,6 +83,18 @@ export default function Dashboard() {
               Compare totals across categories and time ranges.
             </span>
           </button>
+          <button
+            className={styles.actionCard}
+            type="button"
+            onClick={() => {
+              handleClick('transactions');
+            }}
+          >
+            <span className={styles.actionTitle}>View transactions</span>
+            <span className={styles.actionText}>
+              Review every entry for the selected month, including notes.
+            </span>
+          </button>
           <Link className={styles.actionCard} href="/analyse">
             <span className={styles.actionTitle}>Analyze the budget</span>
             <span className={styles.actionText}>
@@ -101,6 +114,7 @@ export default function Dashboard() {
           </div>
           {showComponent === 'expense' && <Expense />}
           {showComponent === 'aggregate' && <Aggregate />}
+          {showComponent === 'transactions' && <Transactions />}
         </section>
       </main>
     </div>

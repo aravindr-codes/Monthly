@@ -13,8 +13,46 @@ const token = req.headers.authorization;
     var mongoclnt=await mongoClient
     const collectionName = 'expense';
     var insertedExpense;
+    var db=mongoclnt.db('BUDGET-DB');
+
+    if (req.method === 'GET') {
+        const { month, startDate, endDate } = req.query;
+        const filter = {};
+
+        let rangeStart;
+        let rangeEnd;
+
+        if (month) {
+            const [year, monthValue] = month.split('-').map((value) => parseInt(value, 10));
+            if (!Number.isNaN(year) && !Number.isNaN(monthValue)) {
+                rangeStart = new Date(year, monthValue - 1, 1);
+                rangeEnd = new Date(year, monthValue, 0, 23, 59, 59, 999);
+            }
+        } else {
+            if (startDate) {
+                rangeStart = new Date(startDate);
+            }
+            if (endDate) {
+                rangeEnd = new Date(endDate);
+            }
+        }
+
+        if (rangeStart || rangeEnd) {
+            filter.expenseDate = {};
+            if (rangeStart) filter.expenseDate.$gte = rangeStart;
+            if (rangeEnd) filter.expenseDate.$lte = rangeEnd;
+        }
+
+        const transactions = await db
+            .collection(collectionName)
+            .find(filter)
+            .sort({ expenseDate: -1, createdDate: -1 })
+            .toArray();
+
+        return res.status(200).json(transactions);
+    }
+
     if(req.method==='POST'){
-        var db=mongoclnt.db('BUDGET-DB');
         const payload = req.body;
         const expenses = Array.isArray(payload?.expenses)
             ? payload.expenses
@@ -51,6 +89,7 @@ const token = req.headers.authorization;
             insertedExpense = await db.collection(collectionName).insertMany(normalized);
         }
     }
-    res.status(200).json(insertedExpense)
+
+    return res.status(200).json(insertedExpense)
   }
   
