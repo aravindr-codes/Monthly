@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -11,6 +11,12 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const router = useRouter()
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Testing shortcut: bypass login and go straight to dashboard.
+    Cookies.set('token', 'test');
+    router.replace('./dashboard');
+  }, [router]);
   const handleSubmit = async (event) => {
     event.preventDefault();
     
@@ -39,6 +45,27 @@ export default function Home() {
    
   };
  
+  return (
+    <div>
+      <Head>
+        <title>Monthly App</title>
+      </Head>
+      <main className={styles.main}>
+        <div className={styles.loginLayout}>
+          <section className={styles.card}>
+            <h2 className={styles.cardTitle}>Redirecting…</h2>
+          </section>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+/* 
+  Login UI (commented out for testing redirect)
+  Uncomment this block to restore the login page.
+*/
+/*
   return (
     <div>
       <Head>
@@ -116,3 +143,4 @@ export default function Home() {
     </div>
   )
 }
+*/
